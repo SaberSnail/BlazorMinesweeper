@@ -1,0 +1,64 @@
+﻿@page "/"
+@using BlazorMinesweeper.Models
+@using System.Globalization
+
+<div>
+	<button @onclick="Start">Start</button>
+</div>
+<div class="board-grid">
+	@foreach (var row in m_board.Cells)
+	{
+		<div class="board-row">
+			@foreach (var cell in row)
+			{
+				<div class="@GetCellClass(cell)" @onclick="@(() => CellClicked(cell))" @oncontextmenu:preventDefault @oncontextmenu="@(() => CellFlagged(cell))">@GetCellContent(cell)</div>
+			}
+		</div>
+	}
+</div>
+
+@code {
+
+	private void Start() => m_board.Reset(16, 16, 40);
+
+	private void CellClicked(GameCell cell)
+	{
+		m_board.TestCell(cell.Location.Row, cell.Location.Column);
+		if (cell.HasBomb)
+			m_board.RevealAll();
+	}
+
+	private void CellFlagged(GameCell cell) => m_board.FlagCell(cell.Location.Row, cell.Location.Column);
+
+	private static string GetCellClass(GameCell cell)
+	{
+		switch (cell.State)
+		{
+		case CellState.Empty:
+			return "bomb-empty";
+		case CellState.Flagged:
+			return "bomb-flagged";
+		case CellState.Bomb:
+			return "bomb-bomb";
+		default:
+			return "bomb-unknown";
+		}
+	}
+
+	private static string GetCellContent(GameCell cell)
+	{
+		switch (cell.State)
+		{
+		case CellState.Empty:
+			return cell.NeighborCount == 0 ? "" : cell.NeighborCount.ToString(CultureInfo.CurrentCulture);
+		case CellState.Flagged:
+			return "F";
+		case CellState.Bomb:
+			return "*";
+		default:
+			return "";
+		}
+	}
+
+	private GameBoard m_board = new GameBoard();
+}

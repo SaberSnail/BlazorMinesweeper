@@ -1,0 +1,57 @@
+﻿.board-grid {
+	display: flex;
+	flex-direction: column;
+	cursor: default;
+}
+
+.board-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.bomb-empty {
+	width: 20px;
+	height: 20px;
+	text-align-last: center;
+}
+
+.bomb-flagged {
+	width: 20px;
+	height: 20px;
+	color: green;
+	text-align-last: center;
+	border-width: 1px;
+	border-style: solid;
+	background-color: lightgray;
+	border-left-color: white;
+	border-top-color: white;
+	border-right-color: darkgray;
+	border-bottom-color: darkgray;
+}
+
+.bomb-bomb {
+	width: 20px;
+	height: 20px;
+	color: red;
+	text-align-last: center;
+	border-width: 1px;
+	border-style: solid;
+	background-color: lightgray;
+	border-left-color: white;
+	border-top-color: white;
+	border-right-color: darkgray;
+	border-bottom-color: darkgray;
+}
+
+.bomb-unknown {
+	width: 20px;
+	height: 20px;
+	text-align-last: center;
+	border-width: 1px;
+	border-style: solid;
+	background-color: lightgray;
+	border-left-color: white;
+	border-top-color: white;
+	border-right-color: darkgray;
+	border-bottom-color: darkgray;
+}
